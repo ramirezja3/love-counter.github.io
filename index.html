@@ -25,15 +25,6 @@
     
 
     <script>
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
-    import { getFirestore, doc, updateDoc } from "firebase/firestore"; // Import Firestore functions
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
     apiKey: "AIzaSyDIMKLqaBqEvywchm6ERi30VbgLGVnMkfI",
     authDomain: "love-counter-995ab.firebaseapp.com",
@@ -43,22 +34,52 @@
     appId: "1:677590602210:web:abe8d9498dd8df31cba9bb",
     measurementId: "G-EFPSMS4H3G"
     };
-
-    // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
+    
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
         var x = 0;
         var y = 0;
+
+        function fetchInitialValues() 
+        {
+            const loveCounterDocRef = db.collection("loveCounter").doc("DQ8kk0tb9S5K9qHAPLVF");
+            loveCounterDocRef.get().then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    x = data.joshLoves || 0; // Default to 0 if undefined
+                    y = data.chiquisLoves || 0; // Default to 0 if undefined
+                    document.getElementById("num1").textContent = x;
+                    document.getElementById("num2").textContent = y;
+                    resizeImages(); // Update images based on the fetched values
+                } else {
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.error("Error fetching document: ", error);
+            });
+        }
+
         function inc1()
         {
             x++;
             document.getElementById("num1").textContent = x;
-            resizeImages()
-            // Update Firestore
-            const loveCounterDocRef = doc(db, "loveCounter", "DQ8kk0tb9S5K9qHAPLVF"); 
-            updateDoc(loveCounterDocRef, {
+            resizeImages();
+            updateFirestore();
+        }
+
+        function inc2()
+        {
+            y++;
+            document.getElementById("num2").textContent = y;
+            resizeImages();
+            updateFirestore();
+        }
+        
+        function updateFirestore() 
+        {
+            const loveCounterDocRef = db.collection("loveCounter").doc("DQ8kk0tb9S5K9qHAPLVF");
+            loveCounterDocRef.update({
                 joshLoves: x,
                 chiquisLoves: y
             })
@@ -66,25 +87,6 @@
                 console.log("Document successfully updated!");
             })
             .catch(error => {
-                console.error("Error updating document: ", error);
-            });
-            }
-
-        function inc2()
-        {
-            y++;
-            document.getElementById("num2").textContent = y;
-            resizeImages();
-            // Update Firestore
-            const loveCounterDocRef = doc(db, "loveCounter", "DQ8kk0tb9S5K9qHAPLVF"); 
-            updateDoc(loveCounterDocRef, {
-            joshLoves: x,
-            chiquisLoves: y
-        })
-        .then(() => {
-            console.log("Document successfully updated!");
-        })
-        .catch(error => {
                 console.error("Error updating document: ", error);
             });
         }
@@ -114,6 +116,10 @@
                 favicon.href = "heart.webp";
             }
         }
+
+        window.onload = function() {
+        fetchInitialValues();
+        };
 
     </script>
 </body> 
