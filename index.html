@@ -44,7 +44,9 @@
         function fetchInitialValues() 
         {
             const loveCounterDocRef = db.collection("loveCounter").doc("DQ8kk0tb9S5K9qHAPLVF");
-            loveCounterDocRef.get().then((doc) => {
+
+            // Listen for real-time updates
+            loveCounterDocRef.onSnapshot((doc) => {
                 if (doc.exists) {
                     const data = doc.data();
                     x = data.joshLoves || 0; // Default to 0 if undefined
@@ -55,7 +57,7 @@
                 } else {
                     console.log("No such document!");
                 }
-            }).catch((error) => {
+            }, (error) => {
                 console.error("Error fetching document: ", error);
             });
         }
