@@ -2,6 +2,32 @@ body {
     background-color:  rgb(2, 149, 202);
 }
 
+div.pn {
+    position: absolute;
+    right: 37%;
+    left: 34%;
+    bottom: 5%;
+    top: 20%;
+    background-color: rgb(182, 181, 181);
+    font-family: Arial;
+    padding: 0% 1% 1% 2%;
+    border: 4px solid black;
+    border-radius: 2%;
+    box-shadow: 6px 6px 0px rgb(0, 23, 84);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+p.center
+{
+    text-align: center;
+}
+
+text.head{
+    font-weight: bold;
+    font-size: 150%;
+}
+
 text.left {
     font-family: Arial;
     font-size: 150%;
@@ -25,7 +51,14 @@ text.right {
     text-align: right;
 }
 
-button {
+text.notes {
+    font-size: 110%;
+    font-weight: bold;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+button.jb, button.vb {
     background-color: rgb(120, 214, 254);
     padding: 1% 0% 1% 0%;
     border: rgb(120, 214, 254);
@@ -38,17 +71,49 @@ button.jb {
     position: absolute;
     left: 12%;
     bottom: 14%;
+    box-shadow: 6px 6px 1px rgb(0, 23, 84);
+}
+
+img.flip {
     transform: scaleX(-1);
-    box-shadow: -6px 6px 1px rgb(0, 30, 112);
 }
 
 button.vb {
     position: absolute;
     right: 12%;
     bottom: 14%;
-    box-shadow: 6px 6px 1px rgb(0, 30, 112);
+    box-shadow: 6px 6px 1px rgb(0, 23, 84);
 }
 
+button.jb:active {
+    box-shadow: none;
+    transform: translate(5px, 5px);
+    transition: transform .1s ease;
+}
+
+button.vb:active {
+    box-shadow: none;
+    transform: translate(5px, 5px);
+    transition: transform 0.1s ease;
+}
+
+button.bpatch {
+    background-color: rgb(120, 214, 254);
+    width: 3.5%;
+    height: auto;
+    position: absolute;
+    right: 1%;
+    border: 3px solid black;
+    border-radius: 5%;
+    box-shadow: 3px 3px 0px rgb(0, 23, 84);
+    cursor: pointer;
+}
+
+button.bpatch:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
+    transition: transform 0.1s ease;
+}
 
 button:hover{
     background-color: aliceblue;
@@ -60,8 +125,8 @@ h1 {
     font-style: italic;
     font-weight: bold;
     position: absolute;
-    left: 28%;
-    right: 30%;
+    left: 27%;
+    right: 29%;
     top: 5%;
     text-align: center;
     text-shadow: 3px 3px 1px rgb(255, 0, 43)
@@ -88,4 +153,84 @@ h1 {
     right: 8.5%;
     bottom: 35%;
     transform-origin: center center;
+}
+
+.patch {
+    width: 100%;
+    height: auto;
+}
+
+img.exit {
+    width: 100%;
+    height: auto;
+}
+
+button.exit {
+    background-color: rgb(182, 181, 181);
+    border: none;
+    position: absolute;
+    width: 10%;
+    height: auto;
+    right: 0%;
+    cursor: pointer;
+    border-radius: 15%;
+}
+
+button.exit:hover {
+    background-color: rgb(215, 215, 215);
+}
+
+* {
+    touch-action: manipulation;
+}
+
+
+
+@media (max-height: 950px) and (max-width: 500px)
+{
+    button.jb, button.vb {
+        bottom: 28% !important;
+        width: 30%;
+    }
+
+    button.jb {
+        left: 8%;
+    }
+
+    button.vb {
+        right: 8%;
+    }
+
+    button.jb:active {
+        transform: translate(3px, 3px) !important;
+    }
+
+    button.vb:active {
+        transform: translate(3px, 3px) !important;
+    }
+
+    .rightimage, .leftimage {
+       bottom: 50%;
+       width: 30%;
+    }
+
+    div.pn {
+        left: 5%;
+        right: 5%;
+    }
+
+    button.bpatch:active {
+        transform: translate(1px, 1px) !important;
+    }
+
+    .bpatch {
+        width: 10% !important;
+    }
+
+    button.exit {
+        width: 15%;
+    }
+    .patch {
+        width: 100%;
+    }
 }
